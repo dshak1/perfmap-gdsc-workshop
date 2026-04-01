@@ -1,31 +1,21 @@
-# PerfMap 10D Starter
+# PerfMap Workshop Demo Repo
 
-This is the incomplete workshop starter version of PerfMap.
+This repo contains the **minimal working version** of the PerfMap workshop
+hash map.
 
-The goal is to give attendees something they can clone, build, and fix during
-the session instead of just reading the finished implementation.
+It keeps only the files needed for the workshop demo:
 
-## What Is Included
+- the core `HashMap` implementation
+- the `Slot` representation
+- the focused workshop test suite
+- the small CMake build setup
 
-- a minimal open-addressing hash map skeleton
-- a focused test suite
-- TODOs around the two most important ideas:
-  - tombstone-aware deletion
-  - rehashing when load factor grows too high
+The point of this repo is to give you the clean working version that turns the
+workshop tests green.
 
-## Build
+## Build And Run
 
-```bash
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build -j8
-ctest --test-dir build --output-on-failure
-```
-
-## Three-Level Run Guide
-
-### Level 1: First Run
-
-Run this first:
+Run these commands from the repo root:
 
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -33,69 +23,31 @@ cmake --build build -j8
 ctest --test-dir build --output-on-failure
 ```
 
-On the first clone, the project should:
+## Expected Result
+
+This repo should:
 
 - configure successfully
 - build successfully
-- pass the easy correctness tests
-- fail exactly two tests
+- pass the workshop tests
 
-Those two failing tests are the workshop target:
+The key tests are:
 
 - `HashMapStarterTest.DeleteShouldNotBreakProbeChain`
 - `HashMapStarterTest.RehashPreservesEntries`
 
-That is intentional. The repo is designed to give you a fast feedback loop:
-build works, most tests pass, and two important invariants are still broken.
+Those are the two invariants the workshop starter was designed to teach:
 
-### Level 2: Focused Fix Loop
+- tombstone-aware deletion
+- preserving entries across growth and rehashing
 
-Once you have seen the failures, switch to targeted reruns:
+## What This Repo Is For
 
-```bash
-ctest --test-dir build -R DeleteShouldNotBreakProbeChain --output-on-failure
-ctest --test-dir build -R RehashPreservesEntries --output-on-failure
-```
+Use this repo when you want:
 
-Suggested order:
+- the minimal passing implementation
+- a clean demo for the workshop
+- a compact reference for the final solution
 
-1. Fix tombstone-aware deletion first.
-2. Re-run only `DeleteShouldNotBreakProbeChain` until it passes.
-3. Fix growth / rehash behavior.
-4. Re-run only `RehashPreservesEntries` until it passes.
-
-That is the fast workshop dopamine loop:
-
-- one broken invariant
-- one code change
-- one test turning green
-
-### Level 3: Final Check And Compare
-
-When both targeted tests are green, run the full suite again:
-
-```bash
-ctest --test-dir build --output-on-failure
-```
-
-## About Benchmarking
-
-This starter repo is correctness-first. It is meant to teach the core data
-structure ideas before throwing students into a larger benchmark harness.
-
-The quick reward here is:
-
-- red test
-- code change
-- green test
-
-If you want the bigger performance dopamine hit after that, compare your
-understanding against the completed `perfmap` repo, which includes the full
-Google Benchmark setup and the workload-specific optimized variants.
-
-## Important Notes
-
-- The starter project is supposed to have failing tests at first.
-- The full polished implementation lives in the main `perfmap` repo.
-- The point of this repo is to teach the core invariants, not to hand over the
-  final answer immediately.
+If you want the full project with benchmarks, workload-specific variants, and
+the larger performance story, use the main `perfmap` repo instead.
