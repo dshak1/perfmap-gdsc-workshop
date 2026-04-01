@@ -13,6 +13,43 @@ It keeps only the files needed for the workshop demo:
 The point of this repo is to give you the clean working version that turns the
 workshop tests green.
 
+## Setup
+
+To run this repo on a fresh machine, you need:
+
+- a C++17 compiler
+- CMake 3.14 or newer
+- Git
+- internet access on the first build so CMake can fetch dependencies
+
+This repo uses CMake `FetchContent`, so Google Test and Abseil are downloaded
+automatically during the first configure step.
+
+### Quick Install Hints
+
+**macOS**
+
+- install Xcode Command Line Tools:
+
+```bash
+xcode-select --install
+```
+
+- install CMake if you do not already have it
+
+**Ubuntu / Debian**
+
+```bash
+sudo apt update
+sudo apt install -y build-essential cmake git
+```
+
+**Windows**
+
+- install Visual Studio with the C++ build tools
+- install CMake
+- use either PowerShell, Developer PowerShell, or a terminal with CMake in `PATH`
+
 ## Build And Run
 
 Run these commands from the repo root:
